@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/r3f-infinite-terrain/static/css/main.69eb719f.chunk.css",
-    "main.js": "/r3f-infinite-terrain/static/js/main.f39dbc7d.chunk.js",
-    "main.js.map": "/r3f-infinite-terrain/static/js/main.f39dbc7d.chunk.js.map",
+    "main.js": "/r3f-infinite-terrain/static/js/main.318a2550.chunk.js",
+    "main.js.map": "/r3f-infinite-terrain/static/js/main.318a2550.chunk.js.map",
     "runtime-main.js": "/r3f-infinite-terrain/static/js/runtime-main.080bdf5b.js",
     "runtime-main.js.map": "/r3f-infinite-terrain/static/js/runtime-main.080bdf5b.js.map",
-    "static/js/2.98c7c5aa.chunk.js": "/r3f-infinite-terrain/static/js/2.98c7c5aa.chunk.js",
-    "static/js/2.98c7c5aa.chunk.js.map": "/r3f-infinite-terrain/static/js/2.98c7c5aa.chunk.js.map",
+    "static/js/2.b067285d.chunk.js": "/r3f-infinite-terrain/static/js/2.b067285d.chunk.js",
+    "static/js/2.b067285d.chunk.js.map": "/r3f-infinite-terrain/static/js/2.b067285d.chunk.js.map",
     "index.html": "/r3f-infinite-terrain/index.html",
     "static/css/main.69eb719f.chunk.css.map": "/r3f-infinite-terrain/static/css/main.69eb719f.chunk.css.map",
-    "static/js/2.98c7c5aa.chunk.js.LICENSE.txt": "/r3f-infinite-terrain/static/js/2.98c7c5aa.chunk.js.LICENSE.txt"
+    "static/js/2.b067285d.chunk.js.LICENSE.txt": "/r3f-infinite-terrain/static/js/2.b067285d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.080bdf5b.js",
-    "static/js/2.98c7c5aa.chunk.js",
+    "static/js/2.b067285d.chunk.js",
     "static/css/main.69eb719f.chunk.css",
-    "static/js/main.f39dbc7d.chunk.js"
+    "static/js/main.318a2550.chunk.js"
   ]
 }

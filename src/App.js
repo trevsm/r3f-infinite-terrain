@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { Canvas } from 'react-three-fiber'
+import { Controls } from 'react-three-gui';
 import { OrbitControls, softShadows } from '@react-three/drei'
 
 import { Lighting } from './lighting/Lighting'
@@ -12,14 +12,17 @@ softShadows()
 
 export default function App() {
   return (
-    <Canvas
+    <Controls.Provider
       shadowMap
       gl={{ alpha: false }}
-      camera={{ position: [-10, 3, 10], fov: 60 }}
+      camera={{ position: [20, 3, 20], fov: 60 }}
     >
-      <OrbitControls />
-      <Lighting />
-      <Terrain />
-    </Canvas>
+      <Controls.Canvas>
+        <OrbitControls />
+        <Lighting />
+        <Terrain />
+      </Controls.Canvas>
+      <Controls />
+    </Controls.Provider>
   )
 }

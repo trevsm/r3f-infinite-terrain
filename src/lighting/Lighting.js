@@ -11,7 +11,7 @@ export const Lighting = props => {
         inclination={0}
         azimuth={0.25}
       />
-      <ambientLight intensity={0.4} />
+      <hemisphereLight intensity={0.4} />
       <directionalLight
         castShadow
         position={[2.5, 8, 5]}

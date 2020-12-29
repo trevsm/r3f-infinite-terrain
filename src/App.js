@@ -1,14 +1,15 @@
 import React from 'react'
-import { Canvas } from 'react-three-fiber'
 import { Controls } from 'react-three-gui'
-import { OrbitControls, softShadows } from '@react-three/drei'
+// import { OrbitControls, softShadows } from '@react-three/drei'
 
 import { Lighting } from './lighting/Lighting'
 import { Terrain } from './terrain/Terrain'
+import Player from './player/Player'
+import { Physics } from 'use-cannon'
 
 import './App.css'
 
-softShadows()
+// softShadows()
 
 export default function App() {
   return (
@@ -16,11 +17,13 @@ export default function App() {
       <Controls.Canvas
         shadowMap
         gl={{ alpha: false }}
-        camera={{ position: [30, 20, 30], fov: 60 }}
+        camera={{ position: [30, 20, 30], fov: 90 }}
       >
-        <OrbitControls />
         <Lighting />
-        <Terrain />
+        <Physics>
+          <Player />
+          <Terrain />
+        </Physics>
       </Controls.Canvas>
       <Controls />
     </Controls.Provider>

@@ -1,79 +1,72 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import * as THREE from 'three'
 import { useControl } from 'react-three-gui'
 
 import { perlin } from '../functions/Math'
+import { Water } from './Water'
+import { useConvexPolyhedron } from 'use-cannon'
+import { useFrame } from 'react-three-fiber'
 
-function _ModifyVertices(geometry, size, a, b, floor) {
-  geometry.vertices.forEach(v => {
-    let height = a * perlin.get(b * v.x, b * v.y)
+function _ModifyVertices(geometry, amp, length, canyons, xShift, yShift) {
+  geometry.vertices.map(v => {
+    let height = amp * perlin.get(length * v.x + xShift, length * v.y + yShift)
 
-    if (floor) {
-      height = Math.floor(height)
-      height += a * perlin.get(b * v.x, b * v.y)
+    if (canyons) {
+      height += Math.floor(height)
     }
-
-    // if (height < 0.25) {
-    //   height = 1
-    // } else if (height < 0.5) {
-    //   height = 0.5
-    // } else height = 0
 
     v.z = height
   })
 }
 
 const Plane = props => {
-
-  const refresh = useControl('Refresh', {
-    type: 'button',
-    onClick: () => {
-      // perlin.memory = {}
-    }
-  })
-
-
-  const floor = useControl('Canyons', {
+  const canyons = useControl('Canyons', {
     type: 'boolean',
-    value: true,
+    value: false,
   })
-
   const wireframe = useControl('Wireframe', {
     type: 'boolean',
     value: true,
   })
-
-  const S = useControl('Map Size', {
+  const size = useControl('Map Size', {
     type: 'number',
-    value: 30,
+    value: 60,
     min: 10,
     max: 60,
   })
-
-  const V = useControl('Vertices', {
+  const verts = useControl('Vertices', {
     type: 'number',
-    value: 77.5,
+    value: 30,
     min: 10,
     max: 100,
   })
-
-  const a = useControl('Amplitude', {
+  const amp = useControl('Amplitude', {
     type: 'number',
-    value: 3.85,
+    value: 9.25,
     min: 0,
-    max: 10,
+    max: 50,
   })
-
-  const b = useControl('Length', {
+  const length = useControl('Length', {
     type: 'number',
-    value: 0.1,
-    min: -1,
-    max: 1,
+    value: 0.03,
+    min: 0,
+    max: 0.5,
   })
 
-  const geometry = new THREE.PlaneGeometry(S, S, V, V)
+  const xShift = useControl('X-Shift', {
+    type: 'number',
+    value: 0,
+    min: -5,
+    max: 5,
+  })
+  const yShift = useControl('Y-Shift', {
+    type: 'number',
+    value: 0,
+    min: -5,
+    max: 5,
+  })
 
-  _ModifyVertices(geometry, S, a, b, floor)
+  const geometry = new THREE.PlaneGeometry(size, size, verts, verts)
 
   const material = new THREE.MeshBasicMaterial({
     color: 'grey',
@@ -81,15 +74,34 @@ const Plane = props => {
     wireframe: wireframe,
   })
 
-  const ref = useRef()
+  const [ref] = useConvexPolyhedron(() => ({
+    mass: 0,
+    type: 'Dynamic',
+    rotation: [Math.PI / 2, 0, Math.PI / 2],
+    position: [0, 0, 0],
+    args: [geometry.vertices, geometry.faces],
+  }))
 
-  return <mesh ref={ref} args={[geometry, material]} {...props} castShadow receiveShadow/>
+  useFrame(() => {})
+
+  _ModifyVertices(geometry, amp, length, canyons, xShift, yShift)
+
+  return (
+    <mesh
+      ref={ref}
+      args={[geometry, material]}
+      {...props}
+      castShadow
+      receiveShadow
+    />
+  )
 }
 
 export const Terrain = () => {
   return (
     <>
       <Plane rotation={[Math.PI / 2, 0, Math.PI / 2]} />
+      <Water />
     </>
   )
 }

@@ -1,11 +1,13 @@
-import React, { forwardRef } from 'react'
-import { useThree } from 'react-three-fiber'
-
+import React from 'react'
+import * as THREE from 'three'
+import { useThree, useLoader } from 'react-three-fiber'
 import { useSphere } from 'use-cannon'
 
 import { PlayerMovement } from './PlayerMovement'
 import { PlayerCamera } from './PlayerCamera'
 import { usePlayerControls } from './PlayerControls'
+
+import ball from './ball.jpg'
 
 export default function Player(props) {
   const STATS = {
@@ -27,25 +29,24 @@ export default function Player(props) {
   }))
 
   const { camera } = useThree()
-  const {
-    forward,
-    backward,
-    left,
-    right,
-    jump,
-    run,
-  } = usePlayerControls()
+  const { forward, backward, left, right, jump, run } = usePlayerControls()
+
+  const texture = useLoader(THREE.TextureLoader, ball)
 
   return (
     <group>
-      <PlayerCamera ref={ref} STATS={STATS} camera={camera}/>
+      <PlayerCamera ref={ref} STATS={STATS} camera={camera} />
       <PlayerMovement
         ref={ref}
         api={api}
         STATS={STATS}
         camera={camera}
-        C={{ forward, backward, left, right, jump, run}}
+        C={{ forward, backward, left, right, jump, run }}
       />
+      <mesh ref={ref} castShadow receiveShadow>
+        <sphereBufferGeometry attach="geometry" args={[1, 32, 32]} />
+        <meshStandardMaterial attach="material" map={texture} />
+      </mesh>
     </group>
   )
 }

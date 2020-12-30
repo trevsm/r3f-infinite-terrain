@@ -1,9 +1,6 @@
-import { useEffect, useRef } from 'react'
-
+import { useEffect, useRef, forwardRef } from 'react'
 import * as THREE from 'three'
 import { useFrame } from 'react-three-fiber'
-
-import { forwardRef } from 'react'
 
 export const PlayerMovement = forwardRef((props, ref) => {
   const STATS = props.STATS
@@ -25,6 +22,9 @@ export const PlayerMovement = forwardRef((props, ref) => {
   const playerOnGround = () => {
     return position.current[1] < 1
   }
+  // const playerOnGround = () => {
+  //   return true
+  // }
 
   const applyFriction = () => {
     velocity.current[0] -= velocity.current[0] / STATS.inertia

@@ -1,14 +1,16 @@
 import * as THREE from 'three'
 import React from 'react'
 
+import { MeshWobbleMaterial} from '@react-three/drei'
+
 import { useFrame } from 'react-three-fiber'
 import { useControl } from 'react-three-gui'
 import { usePlane } from 'use-cannon'
 
 export function Water() {
-  const mapWidth = 10000,
-    mapLength = 10000
-  const vX = 32
+  const mapWidth = 1000,
+    mapLength = 1000
+  const vX = 64
 
   const W = useControl('Water Level', {
     type: 'number',
@@ -36,10 +38,11 @@ export function Water() {
       />
       <meshStandardMaterial
         attach="material"
-        color="#010178"
         side={THREE.DoubleSide}
+        metalness={2}
+        color='blue'
         transparent
-        opacity={0.5}
+        opacity={.2}
       />
     </mesh>
   )

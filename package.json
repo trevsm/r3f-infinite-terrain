@@ -6,6 +6,8 @@
   "dependencies": {
     "@react-three/cannon": "^0.5.3",
     "@react-three/drei": "^2.2.12",
+    "cannon-es": "^0.15.1",
+    "cannon-es-debugger": "^0.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-scripts": "^4.0.1",

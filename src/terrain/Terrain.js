@@ -1,21 +1,23 @@
-import React from 'react'
-import * as THREE from 'three'
-import { useControl } from 'react-three-gui'
+import React, { useEffect, useRef } from 'react'
 
+import * as THREE from 'three'
+import { useLoader } from 'react-three-fiber'
+import { useControl } from 'react-three-gui'
+import { useConvexPolyhedron } from 'use-cannon'
+
+import rocks from './rock.jpg'
+import rocksDisp from './DisplacementMap.png'
 import { perlin } from '../functions/Math'
 import { Water } from './Water'
-import { useConvexPolyhedron } from 'use-cannon'
-import { useFrame } from 'react-three-fiber'
 
-function _ModifyVertices(geometry, amp, length, canyons, xShift, yShift) {
-  geometry.vertices.map(v => {
+function modifiedVertices(geometry, amp, length, canyons, xShift, yShift) {
+  return geometry.vertices.map(v => {
     let height = amp * perlin.get(length * v.x + xShift, length * v.y + yShift)
 
     if (canyons) {
       height += Math.floor(height)
     }
-
-    v.z = height
+    return new THREE.Vector3(v.x, v.y, height)
   })
 }
 
@@ -26,23 +28,23 @@ const Plane = props => {
   })
   const wireframe = useControl('Wireframe', {
     type: 'boolean',
-    value: true,
+    value: false,
   })
-  const size = useControl('Map Size', {
+  const mapSize = useControl('Map Size', {
     type: 'number',
-    value: 60,
+    value: 100,
     min: 10,
-    max: 60,
+    max: 1000,
   })
-  const verts = useControl('Vertices', {
+  const vertices = useControl('Vertices', {
     type: 'number',
-    value: 30,
+    value: 200,
     min: 10,
-    max: 100,
+    max: 1000,
   })
   const amp = useControl('Amplitude', {
     type: 'number',
-    value: 9.25,
+    value: 30,
     min: 0,
     max: 50,
   })
@@ -50,9 +52,8 @@ const Plane = props => {
     type: 'number',
     value: 0.03,
     min: 0,
-    max: 0.5,
+    max: 0.1,
   })
-
   const xShift = useControl('X-Shift', {
     type: 'number',
     value: 0,
@@ -66,34 +67,69 @@ const Plane = props => {
     max: 5,
   })
 
-  const geometry = new THREE.PlaneGeometry(size, size, verts, verts)
+  const geometry = useRef(
+    new THREE.PlaneGeometry(mapSize, mapSize, vertices, vertices)
+  )
 
-  const material = new THREE.MeshBasicMaterial({
-    color: 'grey',
-    side: THREE.DoubleSide,
-    wireframe: wireframe,
-  })
+  const texture = useLoader(THREE.TextureLoader, rocks)
+  const dM = useLoader(THREE.TextureLoader, rocksDisp)
 
-  const [ref] = useConvexPolyhedron(() => ({
-    mass: 0,
-    type: 'Dynamic',
-    rotation: [Math.PI / 2, 0, Math.PI / 2],
-    position: [0, 0, 0],
-    args: [geometry.vertices, geometry.faces],
-  }))
+  // texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+  // texture.repeat.set(10, 10)
 
-  useFrame(() => {})
+  // dM.wrapS = texture.wrapT = THREE.RepeatWrapping
+  // dM.repeat.set(10, 10)
 
-  _ModifyVertices(geometry, amp, length, canyons, xShift, yShift)
+  const material = useRef(
+    new THREE.MeshPhongMaterial({
+      color: 'grey',
+      side: THREE.DoubleSide,
+      map:texture,
+      displacementMap: dM,
+      wireframe: wireframe,
+    })
+  )
+
+  // const [ref, api] = useConvexPolyhedron(() => ({
+  //   mass: 0,
+  //   type: 'Static',
+  //   rotation: [Math.PI / 2, 0, Math.PI / 2],
+  //   position: [0, 0, 0],
+  //   args: geometry.current,
+  // }))
+
+  useEffect(() => {
+    geometry.current = new THREE.PlaneGeometry(
+      mapSize,
+      mapSize,
+      vertices,
+      vertices
+    )
+
+    const mV = modifiedVertices(
+      geometry.current,
+      amp,
+      length,
+      canyons,
+      xShift,
+      yShift
+    )
+    //set visible plane
+    geometry.current.vertices = mV
+    //set CVPH hitbox
+    // ref.current.geometry.vertices = mV
+  }, [canyons, wireframe, mapSize, amp, vertices, length, xShift, yShift])
+  //canyons, wireframe, mapSize, amp, vertices, length, xShift, yShift
 
   return (
-    <mesh
-      ref={ref}
-      args={[geometry, material]}
-      {...props}
-      castShadow
-      receiveShadow
-    />
+    <>
+      <mesh
+        args={[geometry.current, material.current]}
+        castShadow
+        receiveShadow
+        {...props}
+      />
+    </>
   )
 }
 

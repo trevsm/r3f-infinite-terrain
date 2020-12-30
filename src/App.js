@@ -9,16 +9,15 @@ import { Physics } from 'use-cannon'
 
 import './App.css'
 
-// softShadows()
+// <Canvas>
+// shadowMap
+// gl={{ alpha: false }}
+// camera={{ position: [30, 20, 30], fov: 90 }}
 
 export default function App() {
   return (
     <Controls.Provider>
-      <Controls.Canvas
-        shadowMap
-        gl={{ alpha: false }}
-        camera={{ position: [30, 20, 30], fov: 90 }}
-      >
+      <Controls.Canvas shadowMap gl={{ antialias: false, alpha: false }}>
         <Lighting />
         <Physics>
           <Player />

@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import * as THREE from 'three'
 import { Sky } from '@react-three/drei'
 
 export const Lighting = props => {
@@ -7,22 +8,20 @@ export const Lighting = props => {
       {/* <fog attach="fog" args={['white', 0, 40]} /> */}
       <Sky
         distance={450000}
-        sunPosition={[2.5, 8, 5]}
+        sunPosition={[150, 150, 150]}
         inclination={0}
         azimuth={0.25}
       />
-      <hemisphereLight intensity={0.4} />
+      <ambientLight />
       <directionalLight
+        position={[150, 150, 150]}
+        shadow-camera-left={-1000}
+        shadow-camera-bottom={-1000}
+        shadow-camera-right={1000}
+        shadow-camera-top={1000}
+        shadow-camera-near={0.1}
+        shadow-camera-far={1500}
         castShadow
-        position={[2.5, 8, 5]}
-        intensity={1.5}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        shadow-camera-far={50}
-        shadow-camera-left={-10}
-        shadow-camera-right={10}
-        shadow-camera-top={10}
-        shadow-camera-bottom={-10}
       />
     </>
   )

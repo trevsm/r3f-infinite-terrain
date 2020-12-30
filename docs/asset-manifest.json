@@ -1,22 +1,25 @@
 {
   "files": {
     "main.css": "/r3f-infinite-terrain/static/css/main.69eb719f.chunk.css",
-    "main.js": "/r3f-infinite-terrain/static/js/main.0d8213e2.chunk.js",
-    "main.js.map": "/r3f-infinite-terrain/static/js/main.0d8213e2.chunk.js.map",
-    "runtime-main.js": "/r3f-infinite-terrain/static/js/runtime-main.4fa4c44c.js",
-    "runtime-main.js.map": "/r3f-infinite-terrain/static/js/runtime-main.4fa4c44c.js.map",
-    "static/js/2.ebdefa94.chunk.js": "/r3f-infinite-terrain/static/js/2.ebdefa94.chunk.js",
-    "static/js/2.ebdefa94.chunk.js.map": "/r3f-infinite-terrain/static/js/2.ebdefa94.chunk.js.map",
-    "static/js/3.9c546df2.chunk.js": "/r3f-infinite-terrain/static/js/3.9c546df2.chunk.js",
-    "static/js/3.9c546df2.chunk.js.map": "/r3f-infinite-terrain/static/js/3.9c546df2.chunk.js.map",
+    "main.js": "/r3f-infinite-terrain/static/js/main.69f18f16.chunk.js",
+    "main.js.map": "/r3f-infinite-terrain/static/js/main.69f18f16.chunk.js.map",
+    "runtime-main.js": "/r3f-infinite-terrain/static/js/runtime-main.92fd77f3.js",
+    "runtime-main.js.map": "/r3f-infinite-terrain/static/js/runtime-main.92fd77f3.js.map",
+    "static/js/2.3820d2b4.chunk.js": "/r3f-infinite-terrain/static/js/2.3820d2b4.chunk.js",
+    "static/js/2.3820d2b4.chunk.js.map": "/r3f-infinite-terrain/static/js/2.3820d2b4.chunk.js.map",
+    "static/js/3.ee2f418f.chunk.js": "/r3f-infinite-terrain/static/js/3.ee2f418f.chunk.js",
+    "static/js/3.ee2f418f.chunk.js.map": "/r3f-infinite-terrain/static/js/3.ee2f418f.chunk.js.map",
     "index.html": "/r3f-infinite-terrain/index.html",
     "static/css/main.69eb719f.chunk.css.map": "/r3f-infinite-terrain/static/css/main.69eb719f.chunk.css.map",
-    "static/js/2.ebdefa94.chunk.js.LICENSE.txt": "/r3f-infinite-terrain/static/js/2.ebdefa94.chunk.js.LICENSE.txt"
+    "static/js/2.3820d2b4.chunk.js.LICENSE.txt": "/r3f-infinite-terrain/static/js/2.3820d2b4.chunk.js.LICENSE.txt",
+    "static/media/DisplacementMap.876a1148.png": "/r3f-infinite-terrain/static/media/DisplacementMap.876a1148.png",
+    "static/media/ball.f2754941.jpg": "/r3f-infinite-terrain/static/media/ball.f2754941.jpg",
+    "static/media/rock.2a68dd7c.jpg": "/r3f-infinite-terrain/static/media/rock.2a68dd7c.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.4fa4c44c.js",
-    "static/js/2.ebdefa94.chunk.js",
+    "static/js/runtime-main.92fd77f3.js",
+    "static/js/2.3820d2b4.chunk.js",
     "static/css/main.69eb719f.chunk.css",
-    "static/js/main.0d8213e2.chunk.js"
+    "static/js/main.69f18f16.chunk.js"
   ]
 }

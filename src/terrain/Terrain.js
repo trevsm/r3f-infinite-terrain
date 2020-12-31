@@ -7,6 +7,7 @@ import { useConvexPolyhedron } from 'use-cannon'
 
 import rocks from './rock.jpg'
 import rocksDisp from './DisplacementMap.png'
+import { Grass } from './Grass'
 import { perlin } from '../functions/Math'
 import { Water } from './Water'
 
@@ -38,7 +39,7 @@ const Plane = props => {
   })
   const vertices = useControl('Vertices', {
     type: 'number',
-    value: 200,
+    value: 300,
     min: 10,
     max: 1000,
   })
@@ -84,7 +85,7 @@ const Plane = props => {
     new THREE.MeshPhongMaterial({
       color: 'grey',
       side: THREE.DoubleSide,
-      map:texture,
+      map: texture,
       displacementMap: dM,
       wireframe: wireframe,
     })
@@ -97,6 +98,8 @@ const Plane = props => {
   //   position: [0, 0, 0],
   //   args: geometry.current,
   // }))
+
+  const grass = useRef()
 
   useEffect(() => {
     geometry.current = new THREE.PlaneGeometry(
@@ -117,12 +120,13 @@ const Plane = props => {
     //set visible plane
     geometry.current.vertices = mV
     //set CVPH hitbox
-    // ref.current.geometry.vertices = mV
+    grass.current = <Grass geometry={geometry.current} />
   }, [canyons, wireframe, mapSize, amp, vertices, length, xShift, yShift])
   //canyons, wireframe, mapSize, amp, vertices, length, xShift, yShift
 
   return (
     <>
+      <group rotation={[Math.PI/2, 0, Math.PI/2]}>{grass.current}</group>
       <mesh
         args={[geometry.current, material.current]}
         castShadow

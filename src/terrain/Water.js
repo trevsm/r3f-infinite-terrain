@@ -14,7 +14,7 @@ export function Water() {
 
   const W = useControl('Water Level', {
     type: 'number',
-    value: -0.5,
+    value: 0,
     min: -5,
     max: 5,
   })

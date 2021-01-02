@@ -1,15 +1,17 @@
 import React, { useMemo, useRef } from 'react'
 import * as THREE from 'three'
-import { useFrame, useLoader } from 'react-three-fiber'
-import grass from './grass.png'
+import { useFrame, useLoader, useThree } from 'react-three-fiber'
+import grass from './textures/grass.png'
+import { useEffect } from 'react/cjs/react.development'
 
 export function Grass({ geometry }) {
   const initialPositions = []
+
   geometry.vertices.forEach(v => {
-    if (v.z < -0.5 && Math.random() * 5 < 3) {
-      initialPositions.push(v.x + Math.random() / 3)
-      initialPositions.push(v.y + Math.random() / 3)
-      initialPositions.push(v.z + Math.random() / 3)
+    if (v.z < -0.5) {
+      initialPositions.push(v.x)
+      initialPositions.push(v.y)
+      initialPositions.push(v.z)
     }
   })
 
@@ -20,6 +22,12 @@ export function Grass({ geometry }) {
   const geom = useRef()
 
   const texture = useLoader(THREE.TextureLoader, grass)
+
+  const { Canvas } = useThree()
+
+  useEffect(() => {
+    console.log(Canvas)
+  }, [])
 
   return (
     <>
